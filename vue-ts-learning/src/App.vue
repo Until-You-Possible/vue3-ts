@@ -1,16 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="container">
+    {{count}}
+    <button @click="increase">点击</button>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent , reactive, computed, toRefs } from 'vue';
+
+interface dataProps {
+  count    : number,
+  increase : () => void,
+  double   : number
+
+}
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
+  setup () {
+      // const count  = ref(0);
+      // const increase = () => {
+      //   count.value++
+      // }
+
+    const data: dataProps = reactive({
+      count    : 0,
+      increase : () => { data.count++ },
+      double   : computed(() => data.count * 2)
+    });
+    const refData = toRefs(data);
+      return {
+        ...refData
+      }
   }
 });
 </script>
