@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent , reactive, computed, toRefs } from 'vue';
+import { defineComponent , reactive, computed, toRefs, watch } from 'vue';
 
 interface dataProps {
   count    : number,
@@ -28,6 +28,11 @@ export default defineComponent({
       increase : () => { data.count++ },
       double   : computed(() => data.count * 2)
     });
+
+    watch("需要监听的对象或者数组", (oldValue,newValue) => {
+      // 监听执行的函数
+    })
+
     const refData = toRefs(data);
       return {
         ...refData
