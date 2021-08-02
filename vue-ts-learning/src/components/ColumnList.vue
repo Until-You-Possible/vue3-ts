@@ -15,7 +15,7 @@
 
 <script lang="ts">
 
-import {computed, defineComponent, onMounted, PropType} from 'vue';
+import { computed, defineComponent, onMounted, PropType } from 'vue';
 
 export interface ColumnProps {
   id          : number;
