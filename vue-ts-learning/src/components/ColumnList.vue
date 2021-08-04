@@ -32,7 +32,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup (props) {
+  setup (props: { list: any[]; }) {
     const columnList = computed(() => {
       return props.list.map(column => {
         if (!column.avatar) {
