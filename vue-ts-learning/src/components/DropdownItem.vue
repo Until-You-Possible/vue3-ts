@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    这里是菜单列表
+    <li class="dropdown-option">
+      <slot></slot>
+    </li>
   </div>
 </template>
 
@@ -14,3 +16,9 @@ export default defineComponent({
 });
 
 </script>
+
+<style>
+
+
+
+</style>
