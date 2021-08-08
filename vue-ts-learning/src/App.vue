@@ -5,7 +5,8 @@
     <form>
       <div class="mb-3">
         <label class="form-label">Email address</label>
-        <inputValidForm :rules="inputTestData" />
+        <inputValidForm :rules="inputTestData" v-model="emailValue" />
+        {{emailValue}}
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -17,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import ColumnList, { ColumnProps } from "./components/ColumnList.vue";
 import GlobalHeader, { UserProps } from "./components/GlobalHeader.vue";
 import inputValidForm, { RuleProp } from "./components/inputValidForm.vue";
@@ -65,6 +66,8 @@ const inputTestData: RuleProp[] = [
 ]
 
 
+
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -73,10 +76,12 @@ export default defineComponent({
     inputValidForm
   },
   setup() {
+    const emailValue = ref("arthur");
     return {
       list        : testData,
       currentUser : userData,
-      inputTestData
+      inputTestData,
+      emailValue
     }
   }
 });

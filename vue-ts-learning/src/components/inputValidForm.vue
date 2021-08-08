@@ -4,7 +4,8 @@
            placeholder="enter the content"
            :class="{'is-validate': inputRef.error}"
            type="text"
-           v-model="inputRef.val"
+           :value="inputRef.val"
+           @input="inputRefValue"
            @blur="validateInput"
     >
     <span v-if="inputRef.error">{{inputRef.message}}</span>
@@ -25,18 +26,21 @@ export interface RuleProp {
 export default defineComponent({
   name: "inputValidForm",
   props: {
-    rules: {
-      type: Array as PropType<RuleProp[]>
-    }
+    rules: Array as PropType<RuleProp[]>,
+    modelValue: String
   },
-  setup(props) {
+  setup(props, context) {
     const  inputRef = reactive({
-      val: "",
+      val: props.modelValue || "",
       error: false,
       message: ""
     });
+    const inputRefValue = (e: KeyboardEvent) => {
+      const currentInputValue = (e.target as HTMLInputElement).value;
+      inputRef.val = currentInputValue;
+      context.emit("update:modelValue", currentInputValue);
+    }
     const validateInput = () => {
-      console.log("inner");
       if (props.rules) {
         let allPassed = props.rules.every(rules => {
           let passed = true;
@@ -54,15 +58,14 @@ export default defineComponent({
           return passed;
         });
         inputRef.error = !allPassed;
-        console.log("allPassed", allPassed);
-        console.log("inputRef", inputRef);
         return allPassed;
       }
     }
     // console.log("validateInput", validateInput);
     return {
       inputRef,
-      validateInput
+      validateInput,
+      inputRefValue
     }
   }
 });
