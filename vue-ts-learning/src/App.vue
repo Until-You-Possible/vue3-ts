@@ -2,24 +2,30 @@
   <div class="container">
     <GlobalHeader :user="currentUser"/>
 <!--    <column-list :list="list"></column-list>-->
-    <form>
+    <ValidateForm>
       <div class="mb-3">
         <label class="form-label">Email address</label>
-        <inputValidForm :rules="inputTestData" v-model="emailValue" />
-        {{emailValue}}
+        <inputValidForm
+            :rules="inputTestData"
+            placeholder="请输入邮箱地址"
+            type="text"
+            v-model="emailValue" />
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <label class="form-label">Password</label>
+        <inputValidForm
+            :rules="inputTestData"
+            placeholder="请输入密码"
+            type="password" />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </ValidateForm>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import ColumnList, { ColumnProps } from "./components/ColumnList.vue";
+import ValidateForm from "./components/ValidateForm.vue";
 import GlobalHeader, { UserProps } from "./components/GlobalHeader.vue";
 import inputValidForm, { RuleProp } from "./components/inputValidForm.vue";
 
@@ -73,10 +79,11 @@ export default defineComponent({
   components: {
     // ColumnList,
     GlobalHeader,
-    inputValidForm
+    inputValidForm,
+    ValidateForm
   },
   setup() {
-    const emailValue = ref("arthur");
+    const emailValue = ref("");
     return {
       list        : testData,
       currentUser : userData,

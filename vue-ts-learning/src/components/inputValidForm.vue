@@ -1,10 +1,9 @@
 <template>
   <div>
     <input class="form-control"
-           placeholder="enter the content"
            :class="{'is-validate': inputRef.error}"
-           type="text"
            :value="inputRef.val"
+           v-bind="$attrs"
            @input="inputRefValue"
            @blur="validateInput"
     >
@@ -29,6 +28,7 @@ export default defineComponent({
     rules: Array as PropType<RuleProp[]>,
     modelValue: String
   },
+  inheritAttrs: false,
   setup(props, context) {
     const  inputRef = reactive({
       val: props.modelValue || "",
