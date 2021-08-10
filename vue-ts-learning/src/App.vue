@@ -2,7 +2,7 @@
   <div class="container">
     <GlobalHeader :user="currentUser"/>
 <!--    <column-list :list="list"></column-list>-->
-    <ValidateForm>
+    <ValidateForm @form-submit="onFormSubmit">
       <div class="mb-3">
         <label class="form-label">Email address</label>
         <inputValidForm
@@ -14,8 +14,9 @@
       <div class="mb-3">
         <label class="form-label">Password</label>
         <inputValidForm
-            :rules="inputTestData"
+            :rules="passwordTestData"
             placeholder="请输入密码"
+            v-model="passwordValue"
             type="password" />
       </div>
     </ValidateForm>
@@ -71,6 +72,13 @@ const inputTestData: RuleProp[] = [
   }
 ]
 
+const passwordTestData = [
+  {
+    type: "required",
+    message: "密码不能为空"
+  }
+]
+
 
 
 
@@ -83,12 +91,19 @@ export default defineComponent({
     ValidateForm
   },
   setup() {
-    const emailValue = ref("");
+    const emailValue = ref<any>("11@sap.com");
+    const passwordValue = ref("24");
+    const onFormSubmit = (results: boolean) => {
+      console.log("results", results);
+    }
     return {
       list        : testData,
       currentUser : userData,
       inputTestData,
-      emailValue
+      passwordTestData,
+      emailValue,
+      passwordValue,
+      onFormSubmit
     }
   }
 });
